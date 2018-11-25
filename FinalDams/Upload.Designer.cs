@@ -138,6 +138,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Upload";
             this.Text = "Upload";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Upload_FormClosed);
             this.Load += new System.EventHandler(this.Upload_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
