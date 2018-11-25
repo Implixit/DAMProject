@@ -33,6 +33,10 @@ namespace FinalDams
             uploadPage.LoggedInUser = LoggedInUser;
             this.Hide();
             uploadPage.ShowDialog();
+            //if (uploadPage.ShowDialog() == DialogResult.OK)
+            //{
+
+            //}
             this.Close();
         }
 
