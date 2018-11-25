@@ -39,6 +39,7 @@ namespace FinalDams
 
         private void SelectFileButton_Click(object sender, EventArgs e)
         {
+            //Select File
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 //make sure user selected the correct one
@@ -46,35 +47,22 @@ namespace FinalDams
             }
         }
 
-        //checks if string contains letters
-        bool IsDigitsOnly(string str)
-        {
-            foreach (char c in str)
-            {
-                if (c < '0' || c > '9')
-                    return false;
-            }
-            return true;
-        }
-
-        private void NHINumberBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // only number in the number Box
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-                MessageBox.Show("Number Only");
-            }
-        }
 
             private void UploadButton_Click(object sender, EventArgs e)
             {
-                #region Add item in confirm page
-                if (openFileDialog.FileName == "" | openFileDialog.FileName == null | openFileDialog.FileName == "openFileDialog1")
+            #region Add item in confirm page + validation
+            //Validation for File
+            if (openFileDialog.FileName == "" | openFileDialog.FileName == null | openFileDialog.FileName == "openFileDialog1")
                 {
                     MessageBox.Show("Please select an asset to upload", "Error");
                     return;
-                }
+            }
+            if (comboBox1.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select Asset Type", "Error");
+                return;
+            }
+            
                 Confirm ConfirmInfomation = new Confirm();
 
                 ConfirmInfomation.Filenamedata.Text = FileName.Text;
@@ -107,7 +95,7 @@ namespace FinalDams
                         ConfirmInfomation.Controls.Add(lb);
                     }
                     // informatioin user enter
-                    else if (ControlNumber is TextBox)
+                    else
                     {
                         Label information = new Label()
                         {
@@ -119,14 +107,39 @@ namespace FinalDams
                         ConfirmInfomation.Controls.Add(information);
                     }
                 }
-                #endregion
+            
+            //validation for meta Tags
+            foreach (Control CheckInformation in Controls)
+            {
+                //check textBox
+                if (CheckInformation is TextBox)
+                {
+                    TextBox textBox = CheckInformation as TextBox;
+                    if (textBox.Text == string.Empty)
+                    {
+                        MessageBox.Show("Please Enter "+CheckInformation.Name);
+                        return;
+                    }
+                }
+                // check combo box
+                else if (CheckInformation is ComboBox)
+                {
+                    ComboBox comboBox = CheckInformation as ComboBox;
+                    if (comboBox.SelectedIndex == -1)
+                    {
+                        MessageBox.Show("Please choose from "+CheckInformation.Name);
+                        return;
+                    }
+                }
+            }
+            #endregion
 
-                if (ConfirmInfomation.ShowDialog() == DialogResult.OK)
+            if (ConfirmInfomation.ShowDialog() == DialogResult.OK)
                 {
                     DialogResult = DialogResult.OK;
 
                     Document UploadFile = new Document();
-                    UploadFile.UploadDate = DateTime.Today.Date;
+                    UploadFile.UploadDate = DateTime.Now.Date;
                     UploadFile.UserID = _context.Users.Where(x => x.Name == LoggedInUser.Name & x.Password == LoggedInUser.Password).FirstOrDefault();
                     UploadFile.AssetType = _context.Types.Where(x => x.Name == comboBox1.Text).FirstOrDefault();
                     UploadFile.Path = openFileDialog.SafeFileName;
@@ -144,12 +157,6 @@ namespace FinalDams
                             {
                                 Uploaddata.MetaType = _context.Meta.Where(q => q.FieldName == z.FieldName).FirstOrDefault();
                                 Uploaddata.Document = _context.Documents.Where(x => x.ID == UploadFile.ID).FirstOrDefault();
-                                if (ControlNumber is DateTimePicker)
-                                {
-
-                                    Uploaddata.MetaValue = ControlNumber.Text;
-                                    //Uploaddata.MetaValue = 
-                                }
                                 Uploaddata.MetaValue = ControlNumber.Text;
                                 _context.Data.Add(Uploaddata);
                             }
@@ -173,15 +180,16 @@ namespace FinalDams
             {
                 //location for new label, textbox
                 int x1 = 30, y1 = 0, x2 = 145, y2 = 0;
-                //List<Meta> listmeta;
 
 
                 int c = groupBox1.Controls.Count;
+            //remove every things before add anythings
                 for (int i = c - 1; i >= 0; i--)
                 {
                     groupBox1.Controls.Remove(groupBox1.Controls[i]);
                 }
-                foreach (var i in _context.Types.Include("MetaDataTypes").Where(x => x.Name == comboBox1.Text))
+            #region Add information box 
+            foreach (var i in _context.Types.Include("MetaDataTypes").Where(x => x.Name == comboBox1.Text))
                 {
                     foreach (var z in i.MetaDataTypes)
                     {
@@ -204,6 +212,11 @@ namespace FinalDams
                                 Name = z.FieldName,
                                 Size = new Size(251, 28),
                             };
+                            if(tb.Name == "NHI Number")
+                            {
+                            //make sure only number in the nhi number
+                                tb.KeyPress += NHINumberBox_KeyPress;
+                            }
                             groupBox1.Controls.Add(tb);
                         }
                         else if (z.FieldType == "bool")
@@ -221,13 +234,15 @@ namespace FinalDams
                         }
                         else
                         {
-                            DateTimePicker tb = new DateTimePicker()
-                            {
-                                Location = new Point(x2, y2),
-                                Size = new Size(251, 28),
-                                Name = z.FieldName
+                        DateTimePicker tb = new DateTimePicker()
+                        {
+                            //Show only day of today.
+                            Format = DateTimePickerFormat.Short,                           
+                            Location = new Point(x2, y2),
+                            Size = new Size(251, 28),
+                            Name = z.FieldName
 
-                            };
+                         };
                             if (lb.Text != "Date")
                             {
                                 groupBox1.Controls.Add(tb);
@@ -240,8 +255,17 @@ namespace FinalDams
 
                     }
                 }
-
+            #endregion
+        }
+        private void NHINumberBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // only number in the number Box
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+                MessageBox.Show("Number Only");
             }
         }
+    }
     }
 
