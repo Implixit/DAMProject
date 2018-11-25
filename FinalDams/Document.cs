@@ -10,7 +10,7 @@ namespace FinalDams
     {
         public int ID { get; set; }
         public DateTime UploadDate { get; set; }
-        public int UserID { get; set; }
+        public User UserID { get; set; }
         public AssetType AssetType { get; set; }
         public string Path { get; set; }
         public List<Data> MetaDataValues { get; set; }

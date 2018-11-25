@@ -135,6 +135,10 @@
     <Compile Include="Migrations\201811182143537_addingMetaValues.Designer.cs">
       <DependentUpon>201811182143537_addingMetaValues.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811252016582_UserUpdate.cs" />
+    <Compile Include="Migrations\201811252016582_UserUpdate.Designer.cs">
+      <DependentUpon>201811252016582_UserUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -178,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811182143537_addingMetaValues.resx">
       <DependentUpon>201811182143537_addingMetaValues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811252016582_UserUpdate.resx">
+      <DependentUpon>201811252016582_UserUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
