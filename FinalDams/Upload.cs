@@ -58,6 +58,14 @@ namespace FinalDams
                 MessageBox.Show("Please select an asset to upload", "Error");
                 return;
             }
+            ////validation for File
+            // if that file is exists in the folder 
+            if (File.Exists(@"Assets\\" + openFileDialog.SafeFileName))
+            {
+                MessageBox.Show("There are exist file please upload other file.");
+                return;
+            }
+            //need to select one of item
             if (comboBox1.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select Asset Type", "Error");
@@ -144,6 +152,15 @@ namespace FinalDams
                 UploadFile.UserID = _context.Users.Where(x => x.Name == LoggedInUser.Name & x.Password == LoggedInUser.Password).FirstOrDefault();
                 UploadFile.AssetType = _context.Types.Where(x => x.Name == comboBox1.Text).FirstOrDefault();
                 UploadFile.Path = openFileDialog.SafeFileName;
+                #region CopyFile
+                //create Folder
+                Directory.CreateDirectory("Assets");
+                //file that user choose
+                string fileToCopy = openFileDialog.FileName;
+                //where it store
+                string destinationForFile = @"Assets\\";
+                File.Copy(fileToCopy, destinationForFile + Path.GetFileName(fileToCopy));      
+                #endregion
                 _context.Documents.Add(UploadFile);
                 _context.SaveChanges();
 
