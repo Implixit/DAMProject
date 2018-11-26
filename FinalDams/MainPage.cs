@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dams;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,11 +21,11 @@ namespace FinalDams
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Search searchPage = new Search();
-            //searchPage.LoggedInUser = LoggedInUser;
-            //this.Hide();
-            //searchPage.ShowDialog();
-            //this.Close();
+            Search searchPage = new Search();
+            searchPage.LoggedInUser = LoggedInUser;
+            this.Hide();
+            searchPage.ShowDialog();
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -26,14 +26,24 @@ namespace Dams
         }
         public void search()
         {
+            listBox1.Items.Clear();
             foreach (var i in _context.Documents.Include("AssetType").Include("MetaDataValues").Where
-                (x => x.AssetType.ACL.AccessLevel == LoggedInUser.ACL.AccessLevel | LoggedInUser.ACL.AccessLevel == 10 & x.AssetType.Name.Contains(textBox1.Text) |
-                x.AssetType.ACL.AccessLevel == LoggedInUser.ACL.AccessLevel | LoggedInUser.ACL.AccessLevel == 10 & x.Path.Contains(textBox1.Text) |
-                x.AssetType.ACL.AccessLevel == LoggedInUser.ACL.AccessLevel | LoggedInUser.ACL.AccessLevel == 10 & x.UploadDate.ToString().Contains(textBox1.Text)))
+                (x => x.AssetType.ACL.AccessLevel == LoggedInUser.ACL.AccessLevel | LoggedInUser.ACL.AccessLevel == 10))
             {
                 Data firstname = _context.Data.Where(x => x.MetaType.FieldName == "First Name" & x.Document.ID == i.ID).FirstOrDefault();
                 Data lastname = _context.Data.Where(x => x.MetaType.FieldName == "Last Name" & x.Document.ID == i.ID).FirstOrDefault();
-                listBox1.Items.Add($"Name: {i.Path} Asset Type:{i.AssetType.Name}, {firstname.MetaValue}, {lastname.MetaValue}");
+                List<Data> listdata = _context.Data.Where(x => x.Document.ID == i.ID).ToList();
+                List<string> li = new List<string>();
+                foreach (var o in listdata)
+                {
+                    if(o.MetaValue.ToLower().Contains(textBox1.Text.ToLower()))
+                    {
+                        listBox1.Items.Add($"Name: {i.Path} Asset Type:{i.AssetType.Name}, {firstname.MetaValue}, {lastname.MetaValue}");
+                        break;
+                    }
+                    
+
+                }
             }
         }
         private void Search_Load(object sender, EventArgs e)
