@@ -39,6 +39,7 @@ namespace FinalDams
                 AccessLevel = Convert.ToInt32(comboBox1.SelectedItem)
             };
             AddUser.ACL = AddAccess;
+            
             _context.Users.Add(AddUser);
             _context.SaveChanges();
 

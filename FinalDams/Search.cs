@@ -28,27 +28,6 @@ namespace Dams
         }
         public void search()
         {
-            //listBox1.Items.Clear();
-            //foreach (var i in _context.Documents.Include("AssetType").Include("MetaDataValues").Where
-            //    (x => x.AssetType.ACL.AccessLevel == LoggedInUser.ACL.AccessLevel | LoggedInUser.ACL.AccessLevel == 10))
-            //{
-            //    //First name
-            //    Data firstname = _context.Data.Where(x => x.MetaType.FieldName == "First Name" & x.Document.ID == i.ID).FirstOrDefault();
-            //    Data lastname = _context.Data.Where(x => x.MetaType.FieldName == "Last Name" & x.Document.ID == i.ID).FirstOrDefault();
-            //    List<Data> listdata = _context.Data.Where(x => x.Document.ID == i.ID).ToList();
-            //    List<string> li = new List<string>();
-            //    foreach (var o in listdata)
-            //    {
-            //        if(o.MetaValue.ToLower().Contains(textBox1.Text.ToLower()))
-            //        {
-            //            listBox1.Items.Add($"Name: {i.Path} Asset Type:{i.AssetType.Name}, {firstname.MetaValue}, {lastname.MetaValue}");
-            //            break;
-            //        }
-
-
-            //    }
-            //}
-
             //clears listbox so you don't add items already in the listbox
             listBox1.Items.Clear();
             //iterates through every document in database, that either has the same access level as the logged in user
