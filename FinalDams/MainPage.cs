@@ -14,7 +14,6 @@ namespace FinalDams
     public partial class MainPage : Form
     {
         public User LoggedInUser { get; set; }
-        public bool Admin =false;
         public MainPage()
         {
             InitializeComponent();
@@ -24,7 +23,6 @@ namespace FinalDams
         {
             Search searchPage = new Search();
             searchPage.LoggedInUser = LoggedInUser;
-            searchPage.Admin = Admin;
             this.Hide();
             searchPage.ShowDialog();
             this.Close();
@@ -36,10 +34,6 @@ namespace FinalDams
             uploadPage.LoggedInUser = LoggedInUser;
             this.Hide();
             uploadPage.ShowDialog();
-            //if (uploadPage.ShowDialog() == DialogResult.OK)
-            //{
-
-            //}
             this.Close();
         }
 
@@ -59,11 +53,20 @@ namespace FinalDams
 
         private void MainPage_Load(object sender, EventArgs e)
         {
-            if (LoggedInUser.ACL.AccessLevel == 5)
+            if (LoggedInUser.ACL.usertype == "Admin")
             {
                 button4.Visible = true;
                 button4.Enabled = true;
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            NewUser newUser = new NewUser();
+            newUser.LoggedInUser = LoggedInUser;
+            this.Hide();
+            newUser.ShowDialog();
+            this.Close();
         }
     }
 }

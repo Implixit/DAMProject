@@ -139,6 +139,10 @@
     <Compile Include="Migrations\201811252016582_UserUpdate.Designer.cs">
       <DependentUpon>201811252016582_UserUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812062019101_accessLevel.cs" />
+    <Compile Include="Migrations\201812062019101_accessLevel.Designer.cs">
+      <DependentUpon>201812062019101_accessLevel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NewUser.cs">
       <SubType>Form</SubType>
@@ -198,6 +202,9 @@
     <EmbeddedResource Include="Migrations\201811252016582_UserUpdate.resx">
       <DependentUpon>201811252016582_UserUpdate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812062019101_accessLevel.resx">
+      <DependentUpon>201812062019101_accessLevel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -207,6 +214,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Search.resx">
+      <DependentUpon>Search.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Upload.resx">
       <DependentUpon>Upload.cs</DependentUpon>
     </EmbeddedResource>
@@ -223,6 +233,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxWMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
