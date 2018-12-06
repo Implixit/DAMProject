@@ -14,6 +14,7 @@ namespace Dams
     public partial class Search : Form
     {
         public User LoggedInUser { get; set; }
+        public bool Admin;
         Context _context = new Context();
         public Search()
         {
@@ -60,12 +61,7 @@ namespace Dams
                     comboBox1.Items.Add(assettype.Name);
                 }
             }
-            //listBox1.Items.Clear();
-            //foreach (var i in _context.Documents.Include("AssetType").Include("MetaDataValues").Where(x => x.AssetType.ACL.AccessLevel == LoggedInUser.ACL.AccessLevel | LoggedInUser.ACL.AccessLevel == 10))
-            //{
-            //    text = $"Name: {i.Path} Asset Type:{i.AssetType.Name}";
-            //    listBox1.Items.Add(text);
-            //}
+         
         }
     }
 }
