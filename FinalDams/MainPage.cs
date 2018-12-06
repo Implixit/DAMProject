@@ -53,6 +53,7 @@ namespace FinalDams
 
         private void MainPage_Load(object sender, EventArgs e)
         {
+            //if user is Admin show the new user button
             if (LoggedInUser.ACL.usertype == "Admin")
             {
                 button4.Visible = true;
