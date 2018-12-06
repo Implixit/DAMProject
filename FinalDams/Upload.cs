@@ -26,7 +26,7 @@ namespace FinalDams
         {
             foreach (var assettype in _context.Types.Include("ACL").Include("MetaDataTypes").Include("Documents"))
             {
-                if (LoggedInUser.ACL.AccessLevel == 10)
+                if (LoggedInUser.ACL.usertype == "Admin")
                 {
                     comboBox1.Items.Add(assettype.Name);
                 }

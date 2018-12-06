@@ -10,6 +10,7 @@ namespace FinalDams
     {
         public int ID { get; set; }
         public int AccessLevel { get; set; }
+        public string usertype { get; set; }
         public List<AssetType> AssetTypes { get; set; }
         public List<User> Users { get; set; }
     }
