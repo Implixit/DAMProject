@@ -105,7 +105,7 @@ namespace Dams
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            search();
+           
         }
 
         private void Search_FormClosed(object sender, FormClosedEventArgs e)
